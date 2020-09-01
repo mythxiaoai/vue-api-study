@@ -1,0 +1,24 @@
+<div id="app">
+    <input v-model="input" /> <button @click="change">改变</button>
+
+    <div v-html="rawHtml"></div>
+</div>
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                input:"<script>alert(1)<\/script>",
+                rawHtml: "<span style='color:red'>v-htm的内容是红色<span>"
+            }
+        },
+        methods: {
+            change(){
+                this.rawHtml = this.input;
+            }
+        }
+    })
+</script>

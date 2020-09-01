@@ -1,0 +1,35 @@
+<style>
+    [v-cloak] {
+        /*比较大的段落，防止闪烁，看到花括号*/
+        display: none;
+    }
+</style>
+
+<div id="app">
+    <span v-text="msg"></span>
+    <!--等同-->
+    <span>{{msg}}</span>
+    <!--一次渲染-->
+    <span v-once>{{msg}}</span>
+
+    <button @click="change">改变</button>
+</div>
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                msg: "我是消息啊"
+            }
+        },
+        methods: {
+            change() {
+                this.msg = 6666
+            }
+        }
+    })
+</script>
+
