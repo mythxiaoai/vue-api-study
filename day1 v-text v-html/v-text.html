@@ -8,9 +8,9 @@
 <div id="app">
     <span v-text="msg"></span>
     <!--等同-->
-    <span>{{msg}}</span>
+    <span v-cloak>{{msg}}</span>
     <!--一次渲染-->
-    <span v-once>{{msg}}</span>
+    <span v-once v-cloak>{{msg}}</span>
 
     <button @click="change">改变</button>
 </div>
