@@ -1,24 +1,53 @@
 <div id="app">
-    <input v-model="input" /> <button @click="change">改变</button>
-
-    <div v-html="rawHtml"></div>
+  <input v-model="input" /> <button @click="change">改变</button>
+  <div v-html="rawHtml"></div>
+  <a href="javascript:alert(1)">点我</a>
 </div>
-
 
 <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
 <script>
-    var app = new Vue({
-        el: '#app',
-        data() {
-            return {
-                input:"<script>alert(1)<\/script>",
-                rawHtml: "<span style='color:red'>v-htm的内容是红色<span>"
-            }
-        },
-        methods: {
-            change(){
-                this.rawHtml = this.input;
-            }
-        }
-    })
+  //真实情况需要过滤script标签外，还需要过滤下面这几种情况
+  //1. 图片的onerror的事件的禁用  处理办法可以做属性置null
+  //2. 注入诱导的点击按钮触发脚本  处理办法 属性替换
+  //3. 设置响应请求头 目前谷歌浏览器支持  set("X-XSS-Protection",1)默认  0 禁止xss过滤  
+  //4. 设置内容安全  set("Content-Security-Policy","deault-src 'self'")  配置只能访问自己网站下的脚本
+  //5. 转义字符   涉及到一个黑白名单的问题  在富文本编辑器的情况需要回显，所以只会禁用script标签  但是的img和诱导按钮也要注意防范
+
+  /*
+//转义字符替换
+function pre(str){
+  return str.replace(/[<>"&]/g,function(val,index,allText){
+    switch(val){
+      case "<":
+        return "&lt;";
+      case ">":
+        return "&gt;";
+      case "\"":
+        return "&quot;";
+      case "&":
+        return "&amp;";
+    }
+  });
+}
+*/
+
+  var app = new Vue({
+    el: "#app",
+    data() {
+      return {
+        //并不会弹框  vue自身有做处理
+        //input:"<script>alert(1)<\/script>",
+        //图片的onerror会导致脚本注入
+        //input:"<img src='https://cn.vuejs.org/images/logo.png1' onError='alert(1);'/>",
+        //注入A标签  做按钮劫持  也可以间接导致脚本注入
+        //input:"<a href='javascript:alert(1)'>点我</a>",
+        rawHtml: "<span style='color:red'>v-htm的内容是红色<span>",
+      };
+    },
+    methods: {
+      change() {
+        this.rawHtml = this.input;
+      },
+    },
+  });
 </script>
