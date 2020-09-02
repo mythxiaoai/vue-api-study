@@ -1,0 +1,25 @@
+<style>
+    [v-cloak] {
+        /*比较大的段落，防止闪烁，看到花括号*/
+        display: none;
+    }
+</style>
+
+<div id="app">
+    <!--v-cloak  解决在加载时出现的{{msg}}  原理是在渲染完成之前会给标签加上v-cloak的自定义属性，加载完成后删除该属性-->
+    <span v-cloak>{{msg}}<span>我是内部子内容</span></span>
+</div>
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                msg: "我是消息啊"
+            }
+        }
+    })
+</script>
+

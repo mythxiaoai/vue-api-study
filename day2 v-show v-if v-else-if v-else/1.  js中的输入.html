@@ -1,0 +1,13 @@
+<script>
+    let log = (...arg) => console.log(...arg);
+
+    //!!把值转成boolean类型  实践中推荐这种用法
+    //[]普通空数组也为false 一般用长度来判空
+    log("!!0 == false", !!0 == false);//true
+    log("[] == false", [] == false);//true  //空数组普通判断也为false
+    log("!![] == false", !![] == false);//false
+    log("!!null == false", !!null == false);//true
+    log("!!undefined == false", !!undefined == false);//true
+    log("!!NaN == false", !!NaN == false);//true
+    log("!!'' == false", !!'' == false);//true
+</script>

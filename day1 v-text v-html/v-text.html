@@ -1,17 +1,11 @@
-<style>
-    [v-cloak] {
-        /*比较大的段落，防止闪烁，看到花括号*/
-        display: none;
-    }
-</style>
 
 <div id="app">
     <!--1. 底层是更新指令标签的textContent 会替换子标签的全部  部分更新需要用到第二种-->
     <span v-text="msg"><span>我是内部子内容</span> </span>
-    <!--2. 等同  可实现部分更新  有个弊端,当没有v-cloak指令时,-->
+    <!--2. 等同  可实现部分更新 但是在弱网下会出现{{msg}}的情况  需要v-cloak指令去做配合-->
     <span>{{msg}}<span>我是内部子内容</span></span>
     <!--3. 一次渲染-->
-    <span v-once v-cloak>{{msg}}</span>
+    <span>{{msg}}</span>
     
     <button @click="change">改变</button>
 </div>

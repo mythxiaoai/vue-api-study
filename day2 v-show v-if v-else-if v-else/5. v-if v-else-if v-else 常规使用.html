@@ -1,0 +1,26 @@
+<div id="app">
+    <H1>v-if v-else-if v-else 常规使用</H1>
+    <input placeholder="请输入年龄" v-model="age" />
+    <p v-if="age<=20">青年</p>
+    <!-- <p>我是测试数据</p> -->
+    <p v-else-if="age<=60">中年</p>
+    <template v-else>
+        <p>老年</p>
+    </template>
+</div>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script>
+    // 1. 切换v-if会使子组件销毁重建，支持template
+    // 2. 触发过度效果，在后面transition讲解
+    // 3. v-else-if 前一兄弟元素(紧碍着)必须有 v-if 或 v-else-if  否则出现v-else或v-else-if指令语法解析报错
+    // 4. v-else 前一兄弟元素必须有 v-if 或 v-else-if
+    // 5. 与v-for的优先级  以及如何优化 后面v-for讲解
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                age: '',
+            }
+        }
+    })
+</script>

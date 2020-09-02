@@ -1,0 +1,29 @@
+<div id="app">
+    <h1>普通用法</h1>
+    <p v-show="show">hellow~</p>
+    <h1>template</h1>
+    <!--v-show 不支持 <template> 元素-->
+    <template v-show="show">
+        <p>hellow2~</p>
+    </template>
+    <!-- <h1>v-else</h1>
+    <div>
+        <span v-if="false">true</span>
+        <span v-else v-show="show">false</span>
+    </div> -->
+    <button @click="show = !show">{{show?'隐藏':'显示'}}</button>
+</div>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script>
+    // 1. 根据表达式的真假显示和隐藏 v-show 实际只做display:none的css属性
+    // 2. 不支持template  不太理解不支持v-else？
+    // 3. 触发过度效果，在后面transition讲解
+    var app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                show: true,
+            }
+        }
+    })
+</script>
