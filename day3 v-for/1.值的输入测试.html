@@ -1,0 +1,88 @@
+<div id="app">
+  <h1>输入测试 - Array</h1>
+  <ul>
+    <li v-for="(item,index) of arr">
+        {{index}}:{{item.name}}
+    </li>
+  </ul>
+
+  <h1>输入测试 - Object</h1>
+  <ul>
+    <li v-for="(val,key,index) of obj">
+        {{index}}:{{key}}:{{val}}
+    </li>
+  </ul>
+
+  <h1>输入测试 - number</h1>
+  <ul>
+    <li v-for="(val,index) of 6">
+      {{index}}:{{val}}
+    </li>
+  </ul>
+
+  <h1>输入测试 - string</h1>
+  <ul>
+    <li v-for="(val,index) of 'Vue'">
+      {{index}}:{{val}}
+    </li>
+  </ul>
+
+  <h1>输入测试 - Iterable1  Set</h1>
+  <ul>
+    <li v-for="(val,index) of set">
+      {{index}}:{{val}}
+    </li>
+  </ul>
+
+  <h1>输入测试 - Iterable1  Map</h1>
+  <ul>
+    <li v-for="(val,index) of map"> 
+      {{index}}:{{val}}
+    </li>
+  </ul>
+
+
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script>
+  //1.运行的值是  Array | Object | number | string | Iterable (2.6 新增)
+  //2.Array (item,index)
+  //3.Object (val,key,index)
+  //4.number (val,index)
+  //5.string (val,index)
+  //6.Iterable (item,index)  Iterable并不能被Observe 进行响应式  只是单纯的展示,可以替换跟的形式进行重新渲染
+
+  //iterable类型，Array、Map和Set都属于iterable类型。
+  var s = new Set(['A', 'B', 'C']);
+  var m = new Map([[1, 'a'], [2, 'b'], [3, 'c']]);
+  var m2= new Map([[1, 'a'], [2, 'b'], [3, 'f']]);
+  var app = new Vue({
+    el: "#app",
+    data() {
+      return {
+        arr: [{ name: "小艾" }, { name: "小明" }],
+        obj: {name:"小艾",age:"18",do:"codeing"},
+        set:s,//iterable 并不能被Observer
+        map:m,//iterable 并不能被Observer
+      };
+    },
+    created(){
+
+      setTimeout(()=>{
+        //iterable 并不能被Observer  所以更新不了视图  并没有重写Map类型的set方法
+        this.map.set(4,'d');
+        console.log(this.map);
+      },2000)
+
+      setTimeout(()=>{
+        //iterable 并不能被Observer  所以更新不了视图  并没有重写Map类型的set方法
+        m.set(5,'f');
+        //需要设置成其他值，让原本内存地址值改变 当然这里new一个新的map也是可以的。
+        this.map = "" 
+        this.map = m; 
+        console.log(this.map);
+      },4000)
+    }
+  });
+</script>

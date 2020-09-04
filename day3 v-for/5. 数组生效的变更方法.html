@@ -1,0 +1,45 @@
+<div id="app">
+  <h1>数组更新</h1>
+  <button @click="arr.push(getRandom())">push()</button>
+  <button @click="arr.pop()">pop()</button>
+  <button @click="arr.unshift(getRandom())">unshift()</button>
+  <button @click="arr.shift()">shift()</button>
+  <button @click="arr.splice(middleIndex,1)">splice({{middleIndex}},1)</button>
+  <button @click="arr.sort()">sort()</button>
+  <button @click="arr.reverse()">reverse()</button>
+  <ul>
+    <li v-for="item,index of arr">{{item}}</li>
+  </ul>
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script>
+  // 1. 组件只支持这7个方法做响应式更新  push pop unshift shift splice  sort  reverse
+  // 2. 直接改下标不会更新 本质原因是不会触发响应式 后面会讲数组响应式的实现原理
+  // 3. 其他更新方法有 1.替换根(整个值做覆盖) 2.Vue.set 3.vm.$set
+  
+  function getRandom() {
+    return Math.floor(Math.random() * 10);
+  }
+  let arr = [];
+  while (true) {
+    arr.push(getRandom());
+    if (arr.length == 5) break;
+  }
+  var app = new Vue({
+    el: "#app",
+    data() {
+      return {
+        arr,
+      };
+    },
+    methods: {
+      getRandom,
+    },
+    computed: {
+      middleIndex() {
+        return Math.floor(this.arr.length / 2);
+      },
+    },
+  });
+</script>

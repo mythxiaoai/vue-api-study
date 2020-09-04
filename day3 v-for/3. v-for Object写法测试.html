@@ -1,0 +1,54 @@
+<div id="app">
+  <h1>obj 1个参数</h1>
+  <ul>
+    <li v-for="value in obj">
+        {{value}}
+    </li>
+  </ul>
+
+
+  <h1> obj 2个参数</h1>
+  <ul>
+    <li v-for="(value,key) in obj">
+        {{key}}:{{value}}
+    </li>
+  </ul>
+
+
+  <h1> obj 3个参数 of</h1>
+  <ul>
+    <li v-for="(value,key,index) of obj">
+      {{index}}:{{key}}:{{value}}
+    </li>
+  </ul>
+
+  <h1>obj 3个参数 of</h1>
+  <ul>
+    <li v-for="(value,key,index) of obj">
+      {{index}}:{{key}}:{{value}}
+    </li>
+  </ul>
+
+  <h1>obj 3个参数 不带扣号</h1>
+  <ul>
+    <li v-for="value,key,index of obj">
+      {{index}}:{{key}}:{{value}}
+    </li>
+  </ul>
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script>
+  //1.Object 一个参数时  返回的是值
+  //2.Object 两个参数时  返回的是(值，键)
+  //3.Object 三个参数时  返回的是(值，键，下标)
+  //4.Objecy 用in 和 of 都可
+  var app = new Vue({
+    el: "#app",
+    data() {
+      return {
+        obj: {name:"小艾",age:"18",do:"codeing"},
+      };
+    },
+  });
+</script>

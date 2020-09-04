@@ -35,7 +35,7 @@ function pre(str){
     el: "#app",
     data() {
       return {
-        //并不会弹框  vue自身有做处理
+        //并不会弹框  HTML5指定<script>插入的标签innerHTML 不执行 原文地址:https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML
         //input:"<script>alert(1)<\/script>",
         //图片的onerror会导致脚本注入
         //input:"<img src='https://cn.vuejs.org/images/logo.png1' onError='alert(1);'/>",

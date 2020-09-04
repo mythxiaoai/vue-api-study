@@ -1,0 +1,45 @@
+<div id="app">
+  <h1>Array 单个参数</h1>
+  <ul>
+    <li v-for="item in items">
+        {{item.name}}
+    </li>
+  </ul> 
+  <h1>Array in  两个参数</h1>
+  <ul>
+    <li v-for="(item,index) in items">
+        {{index}} - {{item}}
+    </li>
+  </ul>
+
+  <h1>Array of  两个参数</h1>
+  <ul>
+    <li v-for="(item,index) of items">
+        {{index}} - {{item}}
+    </li>
+  </ul>
+
+  <h1> Array of  不带括号</h1>
+  <ul>
+    <li v-for="item,index of items">
+        {{index}} - {{item}}
+    </li>
+  </ul>
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script>
+  // 1.Array  1个参数的时候 显示每项的值
+  // 2.Array  2个参数的时候  用别名接收扣好  顺序接收(每项的值，每项的下标)
+  // 3.Array  用in  of 关键字都可以  实际并没有区别  包括obj也可以用of,建议数组用of  更接近js的迭代器语法(iterator)
+  // 4.Array  没有第三个参数~obj才有  参数的扣好可有可无
+  var app = new Vue({
+    el: "#app",
+    data() {
+      return {
+        items: [{ name: "小艾" }, { name: "小明" }],
+        obj: {name:"小艾",age:"18",do:"codeing"},
+      };
+    },
+  });
+</script>

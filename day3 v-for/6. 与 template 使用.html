@@ -1,0 +1,24 @@
+<div id="app">
+  <h1>状态维护 key</h1>
+  <ul>
+    <template v-for="item,index of arr" :key="item.id">
+      <li>{{index}}:{{item.name}}</li>
+    </template>
+  </ul>
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script>
+  // 1. v-for可以作用在<template>标签上  在实际项目中避免多余标签的渲染
+  var app = new Vue({
+    el: "#app",
+    data() {
+      return {
+        arr: [
+          { id: "1", name: "小艾" },
+          { id: "2", name: "小明" },
+        ],
+      };
+    },
+  });
+</script>

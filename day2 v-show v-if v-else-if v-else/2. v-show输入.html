@@ -1,26 +1,19 @@
 <div id="app">
-
-    <H1>v-show 输入类型</H1>
-    <p v-show="0">0</p>
-    <p v-show="[]">[]</p>
-    <p v-show="null">null</p>
-    <p v-show="undefined">undefined</p>
-    <p v-show="NaN">NaN</p>
-    <p v-show="''">""</p>
-    <p v-show>撒都没写 不显示</p>
-    <p v-show ="">跟上面效果一样</p>
-   
+  <h1>v-show 输入类型</h1>
+  <p v-show="0">0</p>
+  <p v-show="[]">[]</p>
+  <p v-show="null">null</p>
+  <p v-show="undefined">undefined</p>
+  <p v-show="NaN">NaN</p>
+  <p v-show="''">""</p>
+  <p v-show>撒都没写 不显示</p>
+  <p v-show="">跟上面效果一样</p>
 </div>
 <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
 <script>
-// 1. 输入类型是任意的  跟js中的执行有点不一致的是 [] 经过转Boolean了的
-// 2. 如果什么都没写 会是false  不显示
-    var app = new Vue({
-        el: '#app',
-        data() {
-            return {
-                age: '',
-            }
-        }
-    })
+  // 1. 输入类型是任意的  跟js中的执行有点不一致的是 [] 经过转Boolean了的
+  // 2. 如果什么都没写 会是false  不显示
+  var app = new Vue({
+    el: "#app"
+  });
 </script>
