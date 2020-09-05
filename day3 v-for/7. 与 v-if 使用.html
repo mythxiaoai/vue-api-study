@@ -17,7 +17,7 @@
 <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
 <script>
   //1. 在控制渲染结果的场景下非常有用，但是建议可以用计算属性会更优，原因是 避免v-if的渲染判断和值的属性会触发get劫持都会影响性能
-  //2. 如果判断结果是否做渲染 建议写在v-for的上层，也可以用template做包裹，下面链接可以看详细原因
+  //2. 在如果判断结果是否做渲染的场景下 建议写在v-for的上层，也可以用template做包裹，下面链接可以看详细原因
   //https://cn.vuejs.org/v2/style-guide/#%E4%B8%BA-v-for-%E8%AE%BE%E7%BD%AE%E9%94%AE%E5%80%BC%E5%BF%85%E8%A6%81
   var app = new Vue({
     el: "#app",
