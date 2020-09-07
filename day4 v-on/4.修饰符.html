@@ -1,0 +1,92 @@
+<style>
+  #box {
+    width: 100px;
+    height: 100px;
+    background: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #show {
+    position: fixed;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    bottom: 0;
+    left: 40%;
+    margin: auto;
+  }
+</style>
+<div id="app">
+  <h1>.stop </h1>
+  <div id="box" @click="runP">
+    <button @click.stop="runS">触发</button>
+  </div>
+
+  <h1>.prevent --表单</h1>
+  <form @submit.prevent="fn">
+    <button type="submit">提交</button>
+  </form>
+  <h1>.prevent --a标签</h1>
+  <a href="javascript:alert(1)" @click.prevent="fn">.prevent</a>
+
+  <h1>.capture 捕获</h1>
+  <div id="box" @click.capture="runP">
+    <button @click="runS">触发</button>
+  </div>
+
+  <h1>.self</h1>
+  <div id="box" @click.self="runP">
+    <button @click="runS">触发</button>
+  </div>
+
+  <h1>.once</h1>
+  <button @click.once="fn">触发</button>
+
+  <h1>.passive</h1>
+  <div style="height: 200px;width:200px;overflow:auto;" @scroll.passive = "fn">
+    <p v-for="val in 100">{{val}}</p>
+  </div>
+
+  <p id="show">触发:{{counter}}</p>
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script>
+  //.stop .prevent  .capture  .self .once  .passive
+  //.stop 阻止单击事件继续传播 相当于js的 e.stopPropagation()  事例没加stop之前每次+2 会冒泡到上级  
+  //.prevent 阻止默认行为 相当于js的 e.preventDefault() form事例没加会执行表单的默认onSubmit方法，表单事例没加之前会运行href
+  //.capture 使用事件捕获模式，相当于js的 dom.addEventListener("click",fn,true) 事例没加会先执行孩子，在触发上层，没加会是默认执行冒泡
+  //.self 只有触发到是爸爸才回执行，子并不能冒泡到父去做执行，因为父加了.self会通过e.target 是否是当前元素自身触发的  事例  没加会触发父，加只会触发子
+  //.once 只触发一次  2.1.4新增
+  //.passive  能够提升移动端的性能
+
+  // 这些属性的设计都是依据这个标准  可以去看下
+  // https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Parameters
+
+  var app = new Vue({
+    el: "#app",
+    data() {
+      return {
+        counter: 0,
+      };
+    },
+    methods: {
+      fn() {
+        this.counter++;
+      },
+      runP(tim) {
+        console.log("触发爸爸")
+        this.fn();
+      },
+      runS() {
+        console.log("触发孩子")
+        this.fn();
+      }
+    },
+  });
+</script>

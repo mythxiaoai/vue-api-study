@@ -12,7 +12,7 @@
   <button @click="()=>{this.counter++}">click</button>
 
   <h1>输入类型测试 Object</h1>
-  <button v-on ="{ click: fn }">click</button>
+  <button v-on.once ="{ click: fn }">click</button>
   <p>触发{{counter}}</p>
 </div>
 
@@ -22,7 +22,8 @@
   // 2.可以执行一些简单的js
   // 3.执行简单的js只能访问vm配置项中的值，外面包裹一层方法也不行~ 直白点就是只能是vue实例上代理的属性。
   // 4.Inline Statement  是指的内联函数，我理解的是可以跟"内联样式"对比理解，注意带不带this的都可以因为所有的变量都会调用vue的代理对象。
-  // 5.Object 注意上面的写法都是用的@简写，唯独Object不能哦，必须是v-on才行，这个使用场景是在一次性绑定多个事件。
+  // 5.Object 注意上面的写法都是用的@简写，唯独Object不能哦，必须是v-on才行，这个使用场景是在一次性绑定多个事件
+  // 6.当使用对象语法时，是不支持任何修饰器，上面的.once修饰符不生效
   var app = new Vue({
     el: "#app",
     data() {

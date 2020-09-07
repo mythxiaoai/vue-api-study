@@ -1,0 +1,33 @@
+<div id="app">
+  <h1>不带参</h1>
+  <button @[event]="fn">{{event}}</button>
+
+  <p>
+    点我改变触发方式:
+    <button @click="event = 'click'">click</button>
+    <button @click="event = 'focus'">focus</button>
+    <button @click="event = 'mouseover'">mouseover</button>
+  </p>
+  <p>触发:{{counter}}</p>
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script>
+  //1.事件的触发方式可以是动态的 可以以中括号的形式改变方法
+  //2.修饰符是不可以动态的，已试过~，会触发编译报错
+  var app = new Vue({
+    el: "#app",
+    data() {
+      return {
+        event: "click",
+        modifier:"once",
+        counter: 0,
+      };
+    },
+    methods: {
+      fn() {
+        this.counter++
+      },
+    },
+  });
+</script>

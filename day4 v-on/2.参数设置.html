@@ -1,13 +1,20 @@
 <div id="app">
-  <h1>输入类型测试 </h1>
-  <button @click="fn(null)">click</button>
+  <h1>不带参</h1>
+  <button @click="fn">click</button>
+  <h1>带参</h1>
+  <button @click="fn(66,$event)">click</button>
+  <h1>Object 带参</h1>
+  <button v-on="{click:($event)=>fn(3,$event)}" >click</button>
 
   <p>msg:{{msg}}</p>
 </div>
 
 <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
 <script>
-  //1. Function | Inline Statement | Object
+  //1.不带参数的形式，第一个参数默认是$event
+  //2.带参数的形式，如果也需要获取$event  需要手动填写
+  //3.Object形式直接带参数是做不到的，因为你的值的定义本身就直接运行了。
+  //4.Object形式带参数可以接收值是方法，当触发事件才运行这个方法，如果需要$event,也需要手动传递进去，否则接收不到
   var app = new Vue({
     el: "#app",
     data() {
