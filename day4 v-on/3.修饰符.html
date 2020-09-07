@@ -1,0 +1,25 @@
+<div id="app">
+  <h1>输入类型测试 </h1>
+  <button @click="fn(null)">click</button>
+
+  <p>msg:{{msg}}</p>
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script>
+  //1. Function | Inline Statement | Object
+  var app = new Vue({
+    el: "#app",
+    data() {
+      return {
+        msg:null,
+      };
+    },
+    methods: {
+      fn(...arg) {
+        console.log(arg);
+        this.msg = arg.join(",");
+      },
+    },
+  });
+</script>
