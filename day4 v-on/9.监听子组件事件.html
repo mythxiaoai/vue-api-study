@@ -1,24 +1,27 @@
 
 <div id="app">
   <h1>父子组件事件传递</h1>
-  <sub @minus="fn" />
-  counter{{counter}}
+  <test ref="test" @minus="fn" @click.native="fn"></test>
+  counter:{{counter}}
 </div>
 
-<div id="sub">
+<template id="temp-sub">
   <div>
     我是子组件：<button @click="$emit('minus')">+1</button>
   </div>
-</div>
+</template>
 
 <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
 <script>
-  let sub = {
-    el:"#sub"
+  let ComponentSub = {
+    template:"#temp-sub"
   }
-  //为了简化和说明问题，例子用监听子组件事件 +1的操作
+  // 1.为了简化和说明问题，例子用监听子组件事件 +1的操作
+  // 2.子组件test 在点击button的时候通过$emit触发自身的minus的方法，执行父类的fn的方法回调。
+  // 3.如果单独的给组件添加点击事件，因为子组件并没有$emit去做自身组件的点击声明，所以触发不了，如果想执行原生的点击事件需要加上.native修饰符，这个例子是绑定在div上，所以点击文字也会触发，点击按钮是2次，子向上传递一次，自身绑定一次
+  // 4.$emit的触发也可以通过组件实例app.$refs.test.$on("minus",()=>{})来执行订阅。
   var app = new Vue({
-    components: { sub },
+    components: { "test":ComponentSub},
     el: "#app",
     data() {
       return {
@@ -31,4 +34,8 @@
       }
     },
   });
+  //订阅test组件的minus事件
+  app.$refs.test.$on("minus",()=>{
+    console.log(666);
+  })
 </script>
