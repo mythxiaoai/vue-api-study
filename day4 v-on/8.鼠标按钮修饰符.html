@@ -1,0 +1,35 @@
+<style>
+#show{position:fixed;width:200px;height:200px;display:flex;justify-content:center;align-items:center;top:0;bottom:0;left:40%;margin:auto;}
+</style>
+<div id="app">
+
+  <h1>.left.alt.exact </h1>
+  <button @click.left.alt.exact="fn">执行</button>
+  <h1>.middle</h1>
+  <button @click.middle="fn">执行</button>
+  <h1>.right</h1>
+  <button @click.right="fn">执行</button>
+  <p id="show">触发:{{evenetName}}</p>
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script>
+  // 1.鼠标修饰符有三个.left .right .middle 
+  // 2.也可以配合其他修饰符使用 .left.alt.exact
+  var app = new Vue({
+    el: "#app",
+    data() {
+      return {
+        evenetName: "",
+      };
+    },
+    methods: {
+      fn(e) {
+        console.log(e);
+        //button  0左边 1 中间 2 右边
+        //https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/MouseEvent
+        this.evenetName = e.type+"---" + e.button
+      }
+    },
+  });
+</script>

@@ -1,0 +1,34 @@
+
+<div id="app">
+  <h1>父子组件事件传递</h1>
+  <sub @minus="fn" />
+  counter{{counter}}
+</div>
+
+<div id="sub">
+  <div>
+    我是子组件：<button @click="$emit('minus')">+1</button>
+  </div>
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script>
+  let sub = {
+    el:"#sub"
+  }
+  //为了简化和说明问题，例子用监听子组件事件 +1的操作
+  var app = new Vue({
+    components: { sub },
+    el: "#app",
+    data() {
+      return {
+        counter: 0,
+      };
+    },
+    methods: {
+      fn(e) {
+        this.counter++
+      }
+    },
+  });
+</script>

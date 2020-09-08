@@ -1,0 +1,53 @@
+<style>
+#show{position:fixed;width:200px;height:200px;display:flex;justify-content:center;align-items:center;top:0;bottom:0;left:40%;margin:auto;}
+</style>
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<div id="app">
+
+  <h1>keyup.enter</h1>
+  <input type="text" @keyup.enter = "fn">
+  <h1>keyup.page-down</h1>
+  <input type="text" @keyup.page-down = "fn">
+  <h1>keyup.a</h1>
+  <input type="text" @keyup.a = "fn">
+  <h1>keyup.0</h1>
+  <input type="text" @keyup.0 = "fn">
+  <h1>keyup.delete</h1>
+  <input type="text" @keyup.delete = "fn">
+  <input type="text" @keyup.backSpace = "fn">
+  <h1>自定义修改按键修饰符别名 keyup.myth</h1>
+  <input type="text" @keyup.myth = "fn">
+  <input type="text" @keyup.s = "fn">
+
+  <p id="show">触发:{{evenetName}}</p>
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script>
+  //按a会触发myth修饰符
+  Vue.config.keyCodes.myth = 65;
+ //把原本的按s才回触发  换成按A就触发了
+  Vue.config.keyCodes.s = 65;
+
+  // 1. 键盘上看到的基本都支持连点，协议规范在这个链接中
+  // 2. 不建议使用keyCode码  比如@keyup.13 因为标准被废弃了，主流浏览器不会支持
+  // 3. 常规的有 .enter .tab .delete .esc .space .up .down .left .right
+  // 4. 自定义修改按键修饰符别名  修改的是key  赋值的是keyCode;
+
+  // 哪些按键可以直接点出来可以参考
+  // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values
+  var app = new Vue({
+    el: "#app",
+    data() {
+      return {
+        evenetName: "",
+      };
+    },
+    methods: {
+      fn(e) {
+        console.log(e);
+        this.evenetName = e.type +":" + e.key
+      }
+    },
+  });
+</script>

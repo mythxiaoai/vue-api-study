@@ -1,0 +1,48 @@
+<style>
+#show{position:fixed;width:200px;height:200px;display:flex;justify-content:center;align-items:center;top:0;bottom:0;left:40%;margin:auto;}
+</style>
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<div id="app">
+
+  <h1>.ctrl单独使用</h1>
+  <input type="text" @keyup.ctrl = "fn">
+  <input type="text" @keyup.17 = "fn">
+  <h1>.alt单独使用</h1>
+  <input type="text" @keyup.alt = "fn">
+  <input type="text" @keyup.18 = "fn">
+  <h1>.shift单独使用</h1>
+  <input type="text" @keyup.shift = "fn">
+  <input type="text" @keyup.16 = "fn">
+  <h1>.meta单独使用</h1>
+  <input type="text" @keyup.meta = "fn">
+  <input type="text" @keyup.91 = "fn">
+
+  <h1>复制粘贴 .ctrl.c .ctrl.v</h1>
+  <input type="text" @keyup.ctrl.c = "fn">
+  <input type="text" @keyup.ctrl.v = "fn">
+
+
+  <p id="show">触发:{{evenetName}}</p>
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script>
+  // 1. 系统修饰键 有 .ctrl .alt .shift .meta
+  // 2. .meta 说明 Mac系统meta对应 command 键 (⌘)，windows对应 windows窗户状的 (⊞)
+  // 3. .ctrl 与常规的键位不同  单独使用不触发，他需要按下状态在按其他案件才触发，如果要单独触发 
+  // 4. 其他系统键位一样都是按下状态才触发 如果需要单独触发需要点他们的keyCode  .ctrl---.17 .alt---.18 .shift---.16 .meta---.91
+  var app = new Vue({
+    el: "#app",
+    data() {
+      return {
+        evenetName: "",
+      };
+    },
+    methods: {
+      fn(e) {
+        console.log(e);
+        this.evenetName = e.type +":" + e.key
+      }
+    },
+  });
+</script>

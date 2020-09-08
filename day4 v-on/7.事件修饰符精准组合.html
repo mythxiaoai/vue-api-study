@@ -1,0 +1,56 @@
+<style>
+#show{position:fixed;width:200px;height:200px;display:flex;justify-content:center;align-items:center;top:0;bottom:0;left:40%;margin:auto;}
+</style>
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<div id="app">
+
+  <h1>键位测试(按下.ctrl .alt .shift .meta执行)</h1>
+  <button @click="fn">执行</button>
+
+  <h1>.click.exact 单独执行</h1>
+  <button @click.exact="fn">执行</button>
+
+  <h1>.click.alt alt+n等等都可以运行</h1>
+  <button @click.alt="fn">执行</button>
+
+  <h1>.click.ctrl.exact 按住ctrl点击才执行</h1>
+  <button @click.ctrl.exact="fn">执行</button>
+
+  <h1>.click.exact.alt 按住alt点击才执行</h1>
+  <button @click.exact.alt="fn">执行</button>
+
+  <h1>.click.alt.ctrl.exact 多个键位精准执行</h1>
+  <button @click.alt.ctrl.exact="fn">执行</button>
+
+  <h1>@keyup.alt.m.exact 其他妙用 按住alt和m才触发</h1>
+  <input @keyup.alt.m.exact="fn">执行</input>
+
+  <p id="show">触发:{{evenetName}}</p>
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script>
+  // 1. .exact 精准的意思 只执行你指定的键位按下才执行  根据 事件对象中的ctrlKey,altKey,metaKey,shiftKey是个属性的boolean来判定是否执行事件回调
+  // 2. 单独使用.exact 要.ctrl .alt .shift .meta都没有按下才执行
+  // 3. 单独使用.click.alt   alt+n 等等其他键位组合  都可以触发 怎么做精准键位控制？
+  // 4. .click.ctrl.exact 按下ctrl后才执行,.ctrl和.exact没有顺序关系
+  // 5. 支持多个组合使用
+  // 6. 注意使用的事件本身  click并不能拿到keyCode值 所以并不能对键位做判断控制  如果需要其他键盘键位值做判定 需要用对应事件
+  var app = new Vue({
+    el: "#app",
+    data() {
+      return {
+        evenetName: "",
+      };
+    },
+    methods: {
+      fn(e) {
+        console.log(e);
+        let {ctrlKey,altKey,metaKey,shiftKey} = e;
+        this.evenetName = e.type +JSON.stringify({
+          ctrlKey,altKey,metaKey,shiftKey
+        },null,4)
+      }
+    },
+  });
+</script>
