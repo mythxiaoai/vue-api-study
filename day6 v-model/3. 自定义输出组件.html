@@ -1,0 +1,76 @@
+<div id="app">
+  <h1>自定义输出组件1</h1>
+  <label>
+    <x-checkbox v-model="checkbox"></x-checkbox>选择
+  </label>
+  {{checkbox}}
+
+  <h1>自定义输出组件2 按enter赋值~</h1>
+  <label>
+    <x-input props-value="哈6" v-model="input"></x-input>
+  </label>
+  {{input}}
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script>
+  // 1. 事例1是官方事例  事例2是为了区分值传递的标记
+  // 2. 首先理解v-model是一个语法糖,做的是根据v-bind和v-on的语法的封装，当然根据不同的表单控件执行的事件和赋值,input|textarea:input/value select:onchang/value checkbox:onchang/checked
+  //    <input type='text' v-model='msg'> 相当于 <input type='text' :value=msg @input='msg =$event.target.value'>
+  // 3. 所以官方提供了可以自定义v-model的方式下面主要介绍下事例2
+  //    1.初始化 v-model的input变量传入 会使test属性和propsValue发生改变
+  //    2.初始化 props-value直接赋值到input的value属性上 使<input>的value发生变化 所以看到两者值不同步
+  //    3.组件传递props-value的值作为组件输入框的初始值
+  //    4.props-value直接赋值到input的value属性上,也就是说props-value与<input>的value绑定
+  //    5.model选项的定义 prop指定要变更<input>的属性名称  event:指定触发的事件名称
+  //    6.当触发@keyup.enter时执行$emit通知到对应的事件名称"触发"事件,把$event.target.value输入框的值赋值给test属性和propsValue使显示发生变化
+  //    7.test可以F12看到标签属性
+  //    8.正常使用场景自定义model.prop的属性指定应该与props的接收(这里是propsValue)一致
+
+
+  //拓展点知识，Vue.compile方法可以得到render函数,然后在写入组件，当然el,template,也可以，el只能在根New的时候才可以用，template优先级大于el，但是他们最终都会转化成render,这里只是手动提前做了~
+  let { render } = Vue.compile(`
+  <input
+      type="checkbox"
+      v-bind:checked="checked"
+      v-on:change="$emit('change', $event.target.checked)"
+    >
+  `)
+  Vue.component('x-input', {
+    model: {
+      prop: 'checked',
+      event: 'change'
+    },
+    props: {
+      checked: Boolean
+    },
+    render
+  })
+
+  Vue.component('x-input', {
+    model: {
+      prop: 'test',//<input>本身属性
+      event: '触发'//触发的事件
+    },
+    props: {
+      propsValue: String//接收的值
+    },
+    template:`
+    <input
+      type="text"
+      :value = "propsValue"
+      @keyup.enter="$emit('触发', $event.target.value)"
+    >
+    `
+  })
+
+  var app = new Vue({
+    el: "#app",
+    data() {
+      return {
+        checkbox: false,
+        input:"哈7"
+      }
+    }
+  });
+</script>

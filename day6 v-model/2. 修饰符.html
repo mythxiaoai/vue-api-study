@@ -1,0 +1,35 @@
+<div id="app">
+  <h1>.lazy</h1>
+  <input type="text" v-model.lazy="input" placeholder="please input..."> input:{{input}}
+  <p>input：{{input}}</p>
+
+  <h1>.number</h1>
+  <input type="number" v-model.number="input1" placeholder="please input Number..."> input:{{input}}
+  <p>input1{{input1}}</p>
+
+  <h1>.trim</h1>
+  <input type="text" v-model.trim="input2" placeholder="please input..."> input:{{input}}
+  <p>input2{{input2}}</p>
+
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script>
+  //1.v-model的修饰符有 .lazy .number .trim
+  //2..lazy 延迟，将原本的input事件变为change事件触发
+  //3..number 做parseFloat方法运算如果转换不了就返回原值  所以输入字符串"开头"的是不会变为数字的~,如果是数字开头那么才回转义，以js的parseFloat()方法表现一致。常见的应用场景是你需要数字类型的，而控件返回给你的是字符串的数字的情景
+  //4..trim  自动过滤用户输入的首尾空白字符  值得注意的是  首尾空白 与字符串的.trim()方法表现一致
+  var app = new Vue({
+    el: "#app",
+    data() {
+      return {
+        input:"",
+        input1:"",
+        input2:"         test            "
+      };
+    },
+    methods: {
+
+    },
+  });
+</script>

@@ -1,0 +1,107 @@
+<div id="app">
+  <h1>input 文本输入</h1>
+  <input type="text" v-model="input" placeholder="please input..."> input:{{input}}
+
+  <h1>textarea 多行文本输入</h1>
+  <textarea v-model="textarea" placeholder="please input.."></textarea>textarea:{{textarea}}
+
+  <h1>radio1 单选框</h1>
+  <label><input type="radio" value="A" v-model="radio1">A</label>
+  <label><input type="radio" value="B" v-model="radio1">B</label>
+  <p>radio1:{{radio1}}</p>
+
+  <h1>radio2 单选框</h1>
+  <label><input type="radio" value="666" v-model="radio2">点我赋值</label>
+  <p>radio2:{{radio2}}</p>
+
+  <h1>radio3 单选框 没有value为空</h1>
+  <label><input type="radio" v-model="radio3">点我赋值</label>
+  <p>radio3:{{radio3}}</p>
+
+  <h1>checkbox1 多选框 默认返回true false</h1>
+  <label><input type="checkbox" v-model="checkbox1">选中</label>
+  <p>checkbox1:{{checkbox1}}</p>
+
+  <h1>checkbox2 多选框 自定义正确错误值</h1>
+  <label><input type="checkbox" true-value="正确" false-value="错误" v-model="checkbox2">选择</label>
+  <p>checkbox2:{{checkbox2}}</p>
+
+  <h1>checkbox3 多选框 以数组的形式接收</h1>
+  <label><input type="checkbox" value="A" v-model="checkbox3">A</label>
+  <label><input type="checkbox" value="B" v-model="checkbox3">B</label>
+  <p>checkbox3:{{checkbox3}}</p>
+
+  <h1>select1 选择框</h1>
+  <select v-model="select1">
+    <option value="">请选择</option>
+    <option>A</option>
+    <option>B</option>
+    <option>C</option>
+  </select>
+  <p>select1:{{select1}}</p>
+
+  <h1>select2 选择框多选 按住ctrl点击</h1>
+  <select v-model="select2" multiple style="width: 50px;">
+    <option>A</option>
+    <option>B</option>
+    <option>C</option>
+  </select>
+  <p>select2:{{select2}}</p>
+
+  <h1>select3 选择框</h1>
+  <select v-model="select3">
+    <option v-for="option in options" v-bind:value="option.value">
+      {{ option.text }}
+    </option>
+  </select>
+  <p>select3:{{select3}}</p>
+
+  <h1>select4 对象选择框</h1>
+  <select v-model="select4">
+    <option :value="{number:123}">下拉框的值是对象</option>
+  </select>
+  <p>select4:{{select4}}</p>
+
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script>
+  //1.总共的控件有 input | textarea | input:radio | input:checkbox | select
+  //2.input和textarea  value property 和 input 事件；
+  //3.radio和checkbox 使用 checked property 和 change 事件，并且只要v-model相同就视为一组
+  //4.radio 如果指定value值那么value就位选中的值，如果没有指定那么就是默认的""空串
+  //5.checkbox 如果没有指定value值，那么选中和取消,返回的是 true和false
+  //  可以单独指定错误和正确的值用true-value="正确" false-value="错误"两个属性
+  //  如果有多个值选中，需要指定你接收的值是数组[] 否则只是true跟false的值的赋值
+  //6.select  最好是指定一个option的value=""来做初始值
+  //  为select配置multiple多选属性时需要初始化对应的值是数组[],否则会报类型不匹配警告
+  //  select的option的value可以作对象
+  //select 字段将 value 作为 prop 并将 change 作为事件。
+  var app = new Vue({
+    el: "#app",
+    data() {
+      return {
+        input: "",
+        textarea: "",
+        radio1: "",
+        radio2: false,
+        radio3: "我是原本的值",
+        checkbox1: false,
+        checkbox2: "",
+        checkbox3: [],
+        select1: "",
+        select2: [],
+        select3: "",
+        select4: "",
+        options: [
+          { text: 'One', value: 'A' },
+          { text: 'Two', value: 'B' },
+          { text: 'Three', value: 'C' }
+        ]
+      };
+    },
+    methods: {
+
+    },
+  });
+</script>
