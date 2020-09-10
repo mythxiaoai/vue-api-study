@@ -74,9 +74,9 @@
   //  可以单独指定错误和正确的值用true-value="正确" false-value="错误"两个属性
   //  如果有多个值选中，需要指定你接收的值是数组[] 否则只是true跟false的值的赋值
   //6.select  最好是指定一个option的value=""来做初始值
+  //  select 字段将 value 作为 prop 并将 change 作为事件。
   //  为select配置multiple多选属性时需要初始化对应的值是数组[],否则会报类型不匹配警告
   //  select的option的value可以作对象
-  //select 字段将 value 作为 prop 并将 change 作为事件。
   var app = new Vue({
     el: "#app",
     data() {
