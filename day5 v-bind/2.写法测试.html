@@ -1,0 +1,32 @@
+<div id="app">
+  <h1>简写</h1>
+  <p :title="value">属性简写</p>
+
+  <h1>动态属性</h1>
+  属性:<input type="text" v-model="key">
+  值：<input type="text" v-model="value">
+  <p :[key]="value">我是触发区域</p>
+  <p>{{key}}---{{value}}</p>
+
+  <h1>运算</h1>
+  <img width="180" height="180" :src="'https://cn.vuejs.org' + fileName">
+  <p :title = "Math.random()">我的title属性是计算出来的</p>
+
+</div>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script>
+  //1.动态属性  让单个属性可运算
+  //2.运算 支持属性表达式  表达式的规则跟插值表达式一致 链接如下 webapi的支持有一个全局白名单可以看下
+  // https://cn.vuejs.org/v2/guide/syntax.html#%E4%BD%BF%E7%94%A8-JavaScript-%E8%A1%A8%E8%BE%BE%E5%BC%8F
+
+  var app = new Vue({
+    el: "#app",
+    data() {
+      return {
+        key:"onclick",
+        value:"alert(1)",
+        fileName:"/images/logo.png"
+      };
+    }
+  });
+</script>

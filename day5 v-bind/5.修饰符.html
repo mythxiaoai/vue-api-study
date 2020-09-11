@@ -1,0 +1,56 @@
+
+<div id="app">
+  <h1>通过.prop 赋值DOM原生属性</h1>
+  <p v-bind:inner-html.prop="'模板内调用<b>dom</b>方法~'">???<p>
+  <p :inner-html.prop="'模板内调用<b>dom</b>方法~'">???<p>
+  <p v-bind:text-content.prop="val">???<p>
+  <input type="checkbox" v-bind:checked.prop="true"><p>
+
+  <h1>.camel</h1>
+  <svg :view-box.camel="'test'"></svg>
+
+  <h1>.sync</h1>
+  <button @click="show=true">弹框</button>
+  <test :show.sync= "show"></test>
+</div>
+
+<template id="model">
+  <div class="model" v-show="show">
+    <button @click="handleCancel">关闭</button>
+  </div>
+</template>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+
+<script>
+  //1..prop -支持 可以通过prop直接访问dom的js方法   用kebab-case 的方式  注意  值是运算，如果直接填字符串需要加单引号
+  //2..camel -驼峰 讲kebab-case转驼峰的写法 在使用字符串模板或通过 vue-loader/vueify 编译时，无需使用 .camel。
+  //3..sync -同步 与绑定的属性同步更新，其实是底层帮你创建了一个@update:myPropName的事件提供给子组件调用，只是语法糖，简化值同步  场景是用在弹框的过程中 子组件prop接收显示，同update:show事件执行回调使show值同步
+  //4..sync 修饰符的 v-bind 不能和表达式一起使用
+
+  let XModel = {
+    template:"#model",
+    props:['show'],
+    methods:{
+      handleCancel(){
+        this.$emit('update:show', false)
+      }
+    }
+  }
+
+  var app = new Vue({
+    el: "#app",
+    components:{"test":XModel},
+    data() {
+      return {
+        val:"我是文本值",
+        show:false,
+      }
+    },
+    
+  });
+</script>
+<style>
+.model{position:fixed;height:100%;width:100%;top:0;left:0;margin:0;padding:0;background:rgba(0,0,0,.3);display:flex;justify-content:center;align-items:center;}
+.model button{font-size:32px;}
+</style>

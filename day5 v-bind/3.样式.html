@@ -1,0 +1,52 @@
+<div id="app">
+  <h1>class绑定</h1>
+  <label><input type="checkbox" v-model="isRed" />isRed</label>
+  <label><input type="checkbox" v-model="isBlue" />isBlue</label>
+  <label><input type="checkbox" v-model="isYellow" />isYellow</label>
+  <div class="static" :class="{ red: isRed }">文本1</div>
+  <div :class="[classA, isRed?'':classB]">文本2</div>
+  <div :class="[classA, { blue: isBlue, [classC]: isYellow }]">文本3</div>
+
+  <h1>style</h1>
+  <input type="number" v-model="size" />
+  <div :style="{ fontSize: size + 'px' }">文本1</div>
+  <div :style="[bg, fw600]">文本2</div>
+
+  <h1>style -样式前缀</h1>
+  <!-- 如果浏览器支持不带浏览器前缀的 flexbox，那么就只会渲染 display: flex。 -->
+  <div :style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }">文本1</div>
+</div>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script>
+  //1.class 对象语法  {className:String:任意-需要返回Boolean}以键作为最终结果的class  value需要得到一个Boolean
+  //2.class 计算出来的结果会累加到原本的class上
+  //3.class 数组形式[className:String]多个class共同作用
+  //4.class 数组和对象可以组合使用
+  //5.class style 都可以用计算属性设置
+  //6.class 内部支持函数表达式
+  //7.style 支持单个值的赋予  也是函数表达式的一种展现形式
+  //8.style 数组  多个样式对象一起生效
+
+  var app = new Vue({
+    el: "#app",
+    data() {
+      return {
+        isRed: false,
+        isBlue: false,
+        isYellow: false,
+        classA: "red",
+        classB: "blue",
+        classC: "yellow",
+        size: 14,
+        bg: { background: "red" },
+        fw600: { fontWeight: "600" },
+      };
+    },
+  });
+</script>
+
+<style>
+  .red {background: red;}
+  .blue {background: blue;}
+  .yellow {background: yellow;}
+</style>
