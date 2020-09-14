@@ -1,0 +1,29 @@
+<div id="app">
+  <h1>编译作用域{{val}}</h1>
+  <test>
+    <button type="submit">保存</button>
+  </test>
+</div>
+
+<template id="test-temp">
+  <div>
+    <slot>
+      <button type="submit">提交</button>
+    </slot>
+  </div>
+</template>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+
+<script type="module">
+  //1.父级模板里的所有内容都是在父级作用域中编译的；子模板里的所有内容都是在子作用域中编译的。
+  import test from "./components/Test.js";
+  let vm = new Vue({
+    el: "#app",
+    components: { test },
+    data() {
+      return {
+      };
+    },
+  });
+</script>
