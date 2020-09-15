@@ -1,5 +1,5 @@
 <div id="app">
-  <h1>编译作用域{{val}}</h1>
+  <h1>编译作用域</h1>
   <test>
     <!--这里的值是pdata-->
     {{val}}
@@ -16,7 +16,7 @@
 
 <script type="module">
   //1.父级模板里的所有内容都是在父级作用域中编译的；子模板里的所有内容都是在子作用域中编译的。
-  import test from "./components/Test2.js";
+  import test from "./components/Test.js";
   let vm = new Vue({
     el: "#app",
     components: { test },

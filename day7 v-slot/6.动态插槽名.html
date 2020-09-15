@@ -1,0 +1,35 @@
+<div id="app">
+  <h1>动态插槽名</h1>
+  <select v-model="type">
+    <option>A</option>
+    <option>B</option>
+    <option>C</option>
+  </select>
+
+  <test>
+    <template #[type]="params">我是动态插槽{{type}},拿到的数据为{{params.data}}</template>
+  </test>
+</div>
+
+<template id="test-temp">
+  <div>
+    <slot name="A" :data="'aData'"></slot>
+    <slot name="B" :data="'bData'"></slot>
+    <slot name="C" :data="'cData'"></slot>
+  </div>
+</template>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script type="module">
+  // 1. 动态插槽,可以将插槽的名字动态赋值，让单个属性可运算  我想到的主要应用场景是渲染不同的插槽获取不同的值做不同的渲染
+  import test from "./components/Test.js";
+  let vm = new Vue({
+    el: "#app",
+    components: { test },
+    data() {
+      return {
+        type: "A",
+      };
+    },
+  });
+</script>

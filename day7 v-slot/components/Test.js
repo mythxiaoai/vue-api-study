@@ -1,3 +1,8 @@
 export default {
-    el:"#test-temp"
+    template:"#test-temp",
+    data(){
+        return {
+            val:"sdata"
+        }
+    }
 };

@@ -1,0 +1,44 @@
+<div id="app">
+  <h1>具名插槽</h1>
+  <test>
+    <template v-slot:header>我是头部</template>
+    <!-- <div v-slot:header>我是头部div</div> -->
+
+    我是内容
+    <!-- <template v-slot> 我是内容</template> -->
+    <!-- <template v-slot:default> 我是内容</template> -->
+   
+    <template #footer>我是尾部</template>
+  </test>
+</div>
+
+<template id="test-temp">
+  <div>
+    <header>
+      <slot name="header"></slot>
+    </header>
+    <main>
+      <!-- <slot></slot> -->
+      <slot name = "default"></slot>
+    </main>
+    <footer>
+      <slot name="footer"></slot>
+    </footer>
+  </div>
+</template>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script type="module">
+  // 1.v-slot具名插槽的模板必须是template标签，否则会被忽略，注释的div会被忽略
+  // 2.如果没有标明name等同于标明name等于defalut，当然使用也是一样的默认是v-solt:default
+  // 3.v-solt：可以缩写为#  例如#footer的写法
+
+  import test from "./components/Test.js";
+  let vm = new Vue({
+    el: "#app",
+    components: { test },
+    data() {
+      return {};
+    },
+  });
+</script>

@@ -1,5 +1,5 @@
 <div id="app">
-  <h1>编译作用域{{val}}</h1>
+  <h1>后备内容</h1>
   <test>
     <button type="submit">保存</button>
   </test>
@@ -16,7 +16,8 @@
 <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
 
 <script type="module">
-  //1.父级模板里的所有内容都是在父级作用域中编译的；子模板里的所有内容都是在子作用域中编译的。
+  //1.官方文档叫后备内容，叫的有点怪，我个人理解是默认内容，让test组件没有内容的时候用插槽内部的默认内容去填充
+  //2.当test有内容时，并不会渲染默认内容
   import test from "./components/Test.js";
   let vm = new Vue({
     el: "#app",

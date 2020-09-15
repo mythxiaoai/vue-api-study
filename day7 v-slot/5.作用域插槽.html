@@ -1,0 +1,47 @@
+<div id="app">
+<div>
+  <h1>作用域插槽</h1>
+  <test #default="slotProps">
+    {{slotProps}}
+  </test>
+  <h1>解构</h1>
+  <test #default="{data}">
+    {{data}}
+  </test>
+  <h1>解构赋值</h1>
+  <test #default="{data:newData}">
+    {{newData}}
+  </test>
+  <h1>解构默认</h1>
+  <test #default="{data='undefined才显示我'}">
+    {{data}}
+  </test>
+</div>
+</div>
+
+<template id="test-temp">
+  <div>
+      <slot v-bind:data="val"></slot>
+      <!-- <slot :data="val"></slot> -->
+      <!--<slot :="val"></slot>--> <!-- { "": "sdata" }-->
+      <!--<slot v-bind="{val}"></slot>--><!-- { "val": "sdata" }-->
+      <!--<slot v-bind="'abc'"></slot>--><!-- { "0": "a", "1": "b", "2": "c" }-->
+  </div>
+</template>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script type="module">
+//1. v2.6.0的更新,作用是在父slot渲染子slot的内容
+//2. 传递方式以bind方式复制以对象属性的方式传递，v-bind赋值 :attribute="value"  --->{attribute:value}的形式传递
+//3. 当然v-bind也可以支持对象，内部一定对象格式，否则会以字符串分割的的形式传递666 --->{ "0": "a", "1": "b", "2": "c" }
+//4. 作用域插槽的内部工作原理是将你的插槽内容包裹在一个传入单个参数的函数，也就是说可以用解构
+//5. 支持解构赋值,解构默认值  只有当data===undefined才会生效并不是Boolean等于false的值这里要注意，事例中把val改成undefined试试
+  import test from "./components/Test.js";
+  let vm = new Vue({
+    el: "#app",
+    components: { test },
+    data() {
+      return {};
+    },
+  });
+</script>
