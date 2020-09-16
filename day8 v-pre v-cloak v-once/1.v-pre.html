@@ -1,0 +1,28 @@
+<div id="app">
+  <h1>pre</h1>
+  <span v-pre>
+    <h3>快来学习Vue</h3>
+    学习内容如下 
+    {{data}}
+  </span>
+  <!-- <pre>
+    <h3>快来学习Vue</h3>
+    学习内容如下
+    day1 ***
+    </pre> -->
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script>
+    //1. 跳过这个元素和它的子元素的编译过程。可以用来显示原始 Mustache 标签。跳过大量没有指令的节点会加快编译。底层原理是通过v-pre对生成的virtualDom挂载pre属性,去做跳过编译的标记
+    //2.所以与html的pre标签没有半毛钱关系哦
+    //这块的源码位置在：src\compiler\codegen\index.js  有兴趣的可以看下 本节所有指令都有
+  let vm = new Vue({
+    el: "#app",
+    data() {
+      return {
+        data: 666,
+      };
+    },
+  });
+</script>

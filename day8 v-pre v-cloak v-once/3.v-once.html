@@ -1,0 +1,30 @@
+<div id="app">
+  <h1>v-once</h1>
+  <input v-model="data1.val">
+  <p>data1:{{data1.val}}</p>
+  <p v-once>v-once:{{data1.val}}(只渲染一次)</p>
+  
+  <h1>freezing</h1>
+  <input v-model="data2.val">
+  <p>data2:{{data2.val}}</p>
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script>
+  // 1. v-once 也可以作用在组件上，值渲染元素和组件一次后将元素或者组件所有的子节点标记为静态内容跳过diff元素比较部分
+  // 2. 当然可以用Object.freeze从源头冻结对象不可修改，让Object.defindPortotype()监听不成功，从而节省渲染性能，实际场景可以在页面渲染大量表格数据时使用，或者在没有数据数据需要响应式的场景下可以使用。
+  let data1 = {val:"我是内容1"};
+  let data2 = {val:"我是内容2"};
+
+  Object.freeze(data2);
+
+  let vm = new Vue({
+    el: "#app",
+    data() {
+      return {
+        data1,data2,
+        interData:666
+      };
+    },
+  });
+</script>
