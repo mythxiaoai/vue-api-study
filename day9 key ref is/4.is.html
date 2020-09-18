@@ -1,52 +1,45 @@
 <div id="app">
-  <h1>循环中的key</h1>
-  <ul>
-    <li v-for="item in items" :key="item.id">{{item.name}}</li>
-  </ul>
+  <h1>is 输入测试 String</h1>
+  <component is="v-a"></component>
 
-  <h1>触发组件的声明周期</h1>
-  <button @click="test = Date.now()">触发组件声明周期</button>
-  <test :key="test"></test>
+  <h1>is 输入测试 Object</h1>
+  <component :is="{}"></component>
+  
+  <h1>单独使用</h1>
+  <div is="v-a"></div>
 
-  <h1>重新触发过渡效果</h1>
-  <button @click="test2 = Date.now()">重新触发过渡效果</button>
-  <transition name="fade" mode="out-in">
-    <p :key="test2">{{ test2 }}</p>
-  </transition>
+  <h1>动态组件</h1>
+  <button @click="type='v-a'">A</button>
+  <button @click="type='v-b'">B</button>
+  <button @click="type='v-c'">C</button>
+  <component :is="type"></component>
+
+  <h1>html限制</h1>
+  <!--select内部只能使option标签-->
+  <select>
+    <component is="v-d"></component>
+    <div is="v-d"></div>
+  </select>
+
+  <select>
+    <option is="v-d"></option>
+  </select>
 </div>
 
 <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
 <script type="module">
-  //1. key的作用是为了在Vue做diff算法对新老虚拟dom标记来区分，是否做更新，不推荐在循环中用index作为key值 只会起到消除警告的作用，推荐做法用唯一做标识(比如id),本节面试问题会详细讲到。
-  //2. 放在组件上时候，当key值变化时，会重新加载组件，不单单只是声明周期，还有data值等其他所有选项全部初始化。
-  //3. 重新触发过渡效果  单key值发生变化，相当于重新innerHTML新的dom元素。
-
-
-  import Test from "./components/Test.js";
-
-  let vm = new Vue({
-    components: { Test },
+  //1. is的存在有两个作用  第一个配合<component>Vue的内置组件做动态组件   第二个摆脱对html的ui ol table select的内部标签的限制，当然在template，.vue文件，<script type="text/x-template">限制不存在的
+  //2. 整体的意思就是  最终实际的渲染标签是什么。
+  //3. Object的参数输入没试过
+  //4. 也可以单独不用componet标签
+  import { VA, VB, VC, VD } from "./components/Test3.js";
+  window.vm = new Vue({
+    components: { VA, VB, VC, VD },
     el: "#app",
     data() {
       return {
-        items: [
-          { id: "a", name: "小艾" },
-          { id: "b", name: "小明" },
-          { id: "c", name: "小王" },
-        ],
-        test: 0,
-        test2: 0,
+        type: "v-a",
       };
     },
   });
 </script>
-
-<style>
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: opacity 0.5s;
-  }
-  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-    opacity: 0;
-  }
-</style>

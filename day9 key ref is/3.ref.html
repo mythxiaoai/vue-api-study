@@ -1,52 +1,48 @@
 <div id="app">
-  <h1>循环中的key</h1>
-  <ul>
-    <li v-for="item in items" :key="item.id">{{item.name}}</li>
-  </ul>
+  <h1>ref dom</h1>
+  <input type="text" ref="test1">
 
-  <h1>触发组件的声明周期</h1>
-  <button @click="test = Date.now()">触发组件声明周期</button>
-  <test :key="test"></test>
+  <h1>ref 组件</h1>
+  <button @click="$refs.test2.fn(1)">点击</button>
+  <test ref="test2"></test>
 
-  <h1>重新触发过渡效果</h1>
-  <button @click="test2 = Date.now()">重新触发过渡效果</button>
-  <transition name="fade" mode="out-in">
-    <p :key="test2">{{ test2 }}</p>
-  </transition>
+  <h1>ref 重名</h1>
+  <test ref="test3"></test>
+  <test ref="test3"></test>
+
+  <h1>ref 循环</h1>
+  <test v-for="i of 2" ref="test4"></test>
+  <span v-for="i of 2" ref="test5"></span>
+
 </div>
 
 <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
 <script type="module">
-  //1. key的作用是为了在Vue做diff算法对新老虚拟dom标记来区分，是否做更新，不推荐在循环中用index作为key值 只会起到消除警告的作用，推荐做法用唯一做标识(比如id),本节面试问题会详细讲到。
-  //2. 放在组件上时候，当key值变化时，会重新加载组件，不单单只是声明周期，还有data值等其他所有选项全部初始化。
-  //3. 重新触发过渡效果  单key值发生变化，相当于重新innerHTML新的dom元素。
-
-
-  import Test from "./components/Test.js";
+  // 1.ref在普通dom上指向的是dom元素
+  // 2.ref在组件上使用，指向的是组件实例
+  // 3.可以通过ref传值和触发方法
+  // 4.需要在mounted渲染完成阶段才能访问的到，不然就是undefined
+  // 5.ref如果名字相同  会访问最后一个   如果是循环的那么this.$refs.组件名会是数组   需要用数组的形式访问
+  import Test from "./components/Test2.js";
 
   let vm = new Vue({
     components: { Test },
     el: "#app",
+    created(){
+      console.log(this.$refs.test1);//undefined
+    },
+    mounted(){
+      this.$refs.test1.focus();
+      this.$refs.test2.number = 6;//通过ref传值改变number数值
+      console.log(this.$refs.test3);//后一个test3的组建
+      console.log(this.$refs.test4);//数组形式的多个组件实例
+      console.log(this.$refs.test5);//数组形式的多个dom实例
+    },
     data() {
       return {
-        items: [
-          { id: "a", name: "小艾" },
-          { id: "b", name: "小明" },
-          { id: "c", name: "小王" },
-        ],
-        test: 0,
-        test2: 0,
+        test1: "",
+        test2: "",
       };
     },
   });
 </script>
-
-<style>
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: opacity 0.5s;
-  }
-  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-    opacity: 0;
-  }
-</style>
