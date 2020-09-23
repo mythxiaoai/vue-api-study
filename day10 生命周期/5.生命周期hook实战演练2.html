@@ -1,0 +1,24 @@
+<div id="app">
+  <v-d @wake="run" @hook:mounted="run"></v-d>
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+
+<script type="module">
+  import VD from "./components/VD.js";
+  //1.需求是在子组件内部执行mounted后执行父组件的run，两种方式，但是hook的方式更加的优雅
+  let vm = new Vue({
+    components: {VD},
+    el: "#app",
+    data() {
+      return {
+        val: "666",
+      };
+    },
+    methods: {
+      run(){
+        console.log("run");
+      }
+    },
+  });
+</script>

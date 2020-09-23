@@ -1,0 +1,36 @@
+<div id="app">
+  {{val}}
+
+  <button @click="$destroy()">销毁</button>
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+
+<script>
+  //1.大家都知道 用addEventListener做事件绑定不会在组件销毁的时候销毁事件，会照成内存泄露，一般情况下需要在销毁时手动取消事件
+  //2.但是会出现配置项代码内容太过分散导致可读性差，所以推荐用hook:beforeDestroy的hook方式相关逻辑写在一起
+  let vm = new Vue({
+    el: "#app",
+    mounted() {
+      //this.chart = echarts.init(this.$el)
+      // 请求数据，赋值数据 等等一系列操作...
+      // 监听窗口发生变化，resize组件
+      window.addEventListener("resize", this._handleResizeChart);
+      // 通过hook监听组件销毁钩子函数，并取消监听事件
+      this.$once("hook:beforeDestroy", () => {
+          console.log("执行销毁");
+        window.removeEventListener("resize", this._handleResizeChart);
+      });
+    },
+    data() {
+      return {
+        val: "666",
+      };
+    },
+    methods: {
+      _handleResizeChart() {
+        console.log(1);
+      },
+    },
+  });
+</script>

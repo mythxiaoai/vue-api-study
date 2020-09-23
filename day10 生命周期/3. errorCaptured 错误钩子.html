@@ -1,0 +1,33 @@
+<div id="app">
+    {{type}}
+    <v-c></v-c>
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+
+<script type="module">
+    //1.errorCaptured 捕获当前组件下的孙子组件报错信息
+    //2.如果自身组件报错，不会触发内部errorCaptured钩子，但是内部的errorCaptured钩子能够阻断错误传递
+    //3.自身组件报错会向上传递给他的挂载的组件，依次向上传递，如果全局有制定config.errorHandler最终会上传到该方法
+    //4.如果在捕获错误的情况下，修改照成错误的参数，那么注意考虑边界情况，如果修改后继续报错会照成无限的渲染循环。
+    import VC from "./components/VC.js"
+    Vue.config.errorHandler = (err,vm,info)=>{
+        console.log("errorHandler");
+        console.log(err,vm,info);
+    }
+
+    let vm = new Vue({
+        components:{VC},
+        el: "#app",
+        created(){
+           
+        },
+        data(){
+            return {type:"v-c"}
+        },
+        errorCaptured(err,vm,info){
+            this.type = "C组件报错啦~"
+            console.log("main-errorCaptured");
+        }
+    })
+</script>
