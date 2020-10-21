@@ -16,7 +16,9 @@
   beforeUpdate
   computed
   updated
-  //其中在ssr下，只触发beforeCreate created errorCaptured这三个生命周期
+  //1. 其中在ssr下，只触发beforeCreate created errorCaptured这三个生命周期
+  //2. 还有一点值得注意的是不能用剪头函数，因为剪头函数中的this的指向是指定当前上下文，需要用Fnction钩子被执行的时候this才会指向Vue实例，这里都是es6的对象缩写
+  {beforeCreate() {}} === {beforeCreate:function(){}} 两个写法相等
   */
   var vm = new Vue({
     el: "#app",

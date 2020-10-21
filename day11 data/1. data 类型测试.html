@@ -1,0 +1,47 @@
+<div id="app">
+  {{text}}
+  <v-a></v-a>
+  <v-b></v-b>
+  <v-c></v-c>
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+
+<script type="module">
+//1.data选项的格式要求是  Object | Function
+//2.data组件的必须是Function  因为避免数据的隔离，后面的面试题会讲
+//3.如果你为 data 使用了箭头函数，则 this 不会指向这个组件的实例
+//4.数据的响应式原理可以查看下面资料   异步更新等到nextTick讲解
+//官方：https://cn.vuejs.org/v2/guide/reactivity.html   
+//博客：https://www.jianshu.com/p/385957bdbc2d
+
+  import VA from "./components/VA.js";
+  import VB from "./components/VB.js";
+  import VC from "./components/VC.js";
+  Vue.config.errorHandler = (err, vm, info) => {
+    console.log("errorHandler");
+    console.log(err, vm, info);
+  };
+  // 1.Object
+  //   window.vm = new Vue({
+  //     el: "#app",
+  //     data: { text: 666 },
+  //   });
+  // 2.Function
+  //   window.vm = new Vue({
+  //     components: { VA },
+  //     el: "#app",
+  //     data(){return { text: 666 }},
+  //   });
+  // 3.组件Object   直接出不来VB组件
+  //   window.vm = new Vue({
+  //     components: { VB },
+  //     el: "#app",
+  //     data(){return { text: 666 }},
+  //   });
+  window.vm = new Vue({
+    components: { VC },
+    el: "#app",
+    data(){return { text: 666 }},
+  });
+</script>

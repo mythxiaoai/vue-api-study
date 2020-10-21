@@ -6,7 +6,7 @@
 
 <script type="module">
   import VD from "./components/VD.js";
-  //1.需求是在子组件内部执行mounted后执行父组件的run，两种方式，但是hook的方式更加的优雅
+  //1.需求是在子组件内部执行mounted后执行父组件的run方法，两种方式实现，但是hook的方式更加的优雅
   //2.js 可以通过$once $on 来调用hook,模板可以通过@hook的方式调用  这是api文档没有的
   let vm = new Vue({
     components: {VD},

@@ -8,5 +8,4 @@ export default {
   data() {
     return { val: "我是D组件" };
   }
-
 };

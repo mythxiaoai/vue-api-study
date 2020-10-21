@@ -1,0 +1,29 @@
+<div id="app">
+  <h3>初始化根的prototype</h3>
+  {{test1}}
+  {{test2}}
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+
+<script type="module">
+    Vue.config.errorHandler = (err, vm, info) => {
+    console.log("errorHandler");
+    console.log(err, vm, info);
+  };
+  //1. data的初始化知会初始化对象上的自有属性，会忽略原型链上的prototype属性
+  class Test{
+    constructor(){
+      this.test1 = 1;
+    }
+  }
+  Test.prototype.test2 =2;
+  let test = new Test();
+  console.log(test);
+  window.vm = new Vue({
+    el: "#app",
+    data: test,
+  });
+ 
+  console.log(vm.$data.test2)//2
+</script>

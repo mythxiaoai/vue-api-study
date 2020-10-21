@@ -1,0 +1,39 @@
+<div id="app">
+  <h3>初始化普通对象的prototype</h3>
+  {{test.test1}}<button @click="test.test1++">响应式test1</button></br></br>
+  {{test.__proto__.test2}}<button @click="test.__proto__.test2++">原型链属性没有响应式</button></br>
+</div>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+
+<script type="module">
+    Vue.config.errorHandler = (err, vm, info) => {
+    console.log("errorHandler");
+    console.log(err, vm, info);
+  };
+  //2. 根据打印的结果得出结论，当初始化不为根的时候，也只会初始化原始自有属性，不会管其他原型链上的值，添加响应式后会在该对象上挂载__ob__对象
+  class Test{
+    constructor(){
+      this.test1 = 1;
+    }
+  }
+  Test.prototype.test2 =2;
+  let test = new Test();
+  window.vm = new Vue({
+    el: "#app",
+    data: {test},
+    watch:{
+      'test':{
+        handler: function(v){
+          //控制台查看数值变化
+          console.log(v);
+        },
+        deep: true
+      }
+    }
+  });
+
+  console.log(vm.$data);//发现自有第一层有__ob__,当前原型链上依旧有test2的值
+ 
+
+</script>
