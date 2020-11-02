@@ -1,0 +1,48 @@
+<div id="app">
+  <div>
+    <h1>改变传参形式</h1>
+    <test #default="a,b,c">
+      {{a}}----1<br />
+      {{b}}----2<br />
+      {{c}}----3<br />
+    </test>
+  </div>
+</div>
+
+<template id="test-temp">
+  <div>
+    <slot v-bind="{a,b,c}"></slot>
+  </div>
+</template>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
+<script type="module">
+  //1.实际应用场景 在一查插件二次封装时候做slot转发数据格式的转换会用到
+  let test = {
+    template: "#test-temp",
+    created() {},
+    mounted() {
+      let fn = this.$scopedSlots.default;
+      this.$scopedSlots.default = function ({ a, b, c }) {
+        return fn(a, b, c);
+      };
+      //重新执行updateComponents
+      this.$forceUpdate();
+    },
+    data() {
+      return {
+        a: "1",
+        b: "2",
+        c: "3",
+      };
+    },
+  };
+  window.vm = new Vue({
+    el: "#app",
+    components: { test },
+    data() {
+      return {};
+    },
+    methods: {},
+  });
+</script>
