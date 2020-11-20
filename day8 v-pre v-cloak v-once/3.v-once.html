@@ -9,7 +9,7 @@
   <p>data2:{{data2.val}}</p>
 </div>
 
-<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
 <script>
   // 1. v-once 也可以作用在组件上，值渲染元素和组件一次后将元素或者组件所有的子节点标记为静态内容跳过diff元素比较部分
   // 2. 当然可以用Object.freeze从源头冻结对象不可修改，让Object.defindPortotype()监听不成功，从而节省渲染性能，实际场景可以在页面渲染大量表格数据时使用，或者在没有数据数据需要响应式的场景下可以使用。

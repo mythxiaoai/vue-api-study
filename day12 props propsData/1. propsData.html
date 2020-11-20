@@ -1,0 +1,21 @@
+<div id="app">
+<h1>基本格式</h1>
+{{msg}}
+<v-a></v-a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+
+<script type="module">
+  import VA from "./components/VA.js";
+  //1.结果是 子组件不展示propsData的值，只有new 创建实例中才有效
+  //2.propsData 主要的作用是为了写一些测试文件才会用到，只有在创建实例时才传递
+  window.vm = new Vue({
+    propsData:{
+      msg:"我是new Vue的props值"
+    },
+    props: ["msg"],
+    components: {VA},
+    el: "#app",
+  });
+</script>

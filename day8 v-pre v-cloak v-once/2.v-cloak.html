@@ -10,7 +10,7 @@
   <span v-cloak>{{msg}}<span>我是内部子内容</span></span>
 </div>
 
-<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
 <script>
   //1.解决问题 解决在加载时出现的{{msg}}的字符串的美观问题
   //2.底层原理 其实已经在day1的时候演示过了，v-cloak的原理在赘述一遍，在渲染之前给标签加上v-cloak自定义属性,因为样式的作用会让这整个标签内的内容隐藏,等待加载完成后删除该自定义属性

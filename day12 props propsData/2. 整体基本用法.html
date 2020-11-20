@@ -1,0 +1,32 @@
+<div id="app">
+  <h1>基本格式</h1>
+  {{msg}}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+
+<script type="module">
+  //type:String|Number|Boolean|Array|Object|Date|Function|Symbol  验证类型，不符合抛出警告  其中Array Date Function 也属于Object  底层用instanceof判定
+  //default:any 默认值,如果没有接受到msg就会呈现该值,对象或数组默认值必须从一个工厂函数获取
+  //required:Boolean  是否必须
+  //validator:Function:Boolean  验证函数，返回Boolean
+  window.vm = new Vue({
+    el: "#app",
+    propsData: {
+      msg: ["我是msg"],
+    },
+    props: {
+      msg: {
+        type: Object,
+        default() {
+          return ["我是msg默认值"];
+        },
+        required: true,
+        validator(value) {
+          console.log(value);
+          return !!value;
+        },
+      },
+    },
+  });
+</script>
